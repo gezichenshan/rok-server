@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "kindom": "544",
+      "password": "5"
+    },
+    {
+      "kindom": "555",
+      "password": "443"
+    }
+  ],
+  "locations": [
+    {
+      "kindom": "555",
+      "lost": "c11353",
+      "x": "232",
+      "y": "123",
+      "type": "大科学家",
+      "password": "443",
+      "id": "129c8b8c-078f-45ba-8c84-539187a2f1dd",
+      "handled": true,
+      "created_at": "2024-07-18 22:19:43"
+    },
+    {
+      "kindom": "555",
+      "lost": "c11353",
+      "x": "232",
+      "y": "123",
+      "type": "大科学家",
+      "password": "443",
+      "id": "a6d147ba-d299-48e0-abf8-d7c61283e854",
+      "handled": false,
+      "created_at": "2024-07-18 22:19:50"
+    },
+    {
+      "kindom": "555",
+      "lost": "c11353",
+      "x": "232",
+      "y": "123",
+      "type": "大科学家",
+      "password": "443",
+      "id": "432b5d87-6233-44ba-82c3-2f6f58642d90",
+      "handled": false,
+      "created_at": "2024-07-18 22:19:50"
+    },
+    {
+      "kindom": "544",
+      "lost": "c11353",
+      "x": "232",
+      "y": "123",
+      "type": "大科学家",
+      "password": "5",
+      "id": "0ad2d9a0-ebaf-4a01-bf9c-561d461c139b",
+      "handled": false,
+      "created_at": "2024-07-18 22:21:15"
+    }
+  ]
+}

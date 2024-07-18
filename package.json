@@ -1,0 +1,26 @@
+{
+  "name": "rok-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "tsx src/main.ts",
+    "serve": "tsx src/server/index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.12",
+    "express": "^4.19.2",
+    "lowdb": "^7.0.1",
+    "tsx": "^4.16.2",
+    "uuid": "^10.0.0"
+  }
+}
