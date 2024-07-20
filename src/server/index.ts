@@ -25,7 +25,15 @@ app.use(cors());
 const port = 3019;
 
 let open = true;
-let failCounts = 0;
+const kindomFailCountsMap = new Map();
+
+function addKindomFailCounts(kindom: string) {
+  const failCounts = kindomFailCountsMap.get(kindom);
+  kindomFailCountsMap.set(kindom, (failCounts ? failCounts : 0) + 1);
+}
+function resetKindomFailCounts(kindom: string) {
+  kindomFailCountsMap.set(kindom, 0);
+}
 
 async function setAddress(req, res, next) {
   const ip = req.headers["x-real-ip"];
@@ -77,8 +85,19 @@ app.get("/api/queue", (req, res) => {
   res.status(200).send(`有${unhandledLocationNumber}个请求排队中`);
 });
 
+app.get("/api/failCounts", (req, res) => {
+  const kindom = req.query.kindom;
+  const failCounts = kindomFailCountsMap.get(kindom) || 0;
+  res.status(200).send(failCounts);
+});
+
 app.post("/api/updateLocation", (req, res) => {
   const location: Location = req.body;
+  if (location.failed) {
+    addKindomFailCounts(location.kindom);
+  } else {
+    resetKindomFailCounts(location.kindom);
+  }
   setLocationHandled(location);
   res.status(200).send("true");
 });
@@ -109,21 +128,6 @@ app.post("/api/close", (req, res) => {
 
 app.get("/api/status", (req, res) => {
   res.send({ status: open });
-});
-
-app.post("/api/fail/collect", (req, res) => {
-  failCounts++;
-  res.send(`ok`);
-});
-
-app.post("/api/success/collect", (req, res) => {
-  console.log("请求成功");
-  failCounts = 0;
-  res.send(`ok`);
-});
-
-app.get("/api/fail", (req, res) => {
-  res.send({ count: failCounts });
 });
 
 app.listen(port, () => {

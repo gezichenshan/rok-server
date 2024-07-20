@@ -9,6 +9,7 @@ export interface Location {
   handled: boolean;
   created_at: string;
   address?: string;
+  failed?: boolean;
 }
 
 export interface User {
