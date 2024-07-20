@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import fetch from "node-fetch";
 import { Location } from "../model";
 import { isLocationValid } from "./utils";
 import {
@@ -28,16 +29,19 @@ let failCounts = 0;
 
 async function setAddress(req, res, next) {
   const ip = req.headers["x-real-ip"];
+  console.log("ip:", ip);
   const url = `https://qifu-api.baidubce.com/ip/geo/v1/district?ip=${ip}`;
   try {
     const address = await fetch(url)
       .then((response) => response.json())
       .then((json) => {
         const data = json.data;
+        console.log("ip resolved data:", data);
         return `${data.prov}${data.city}${data.district}`;
       });
     req.rok_address = address;
   } catch (error) {
+    console.log("ip error:", error);
     req.rok_address = "未知";
   }
   next();

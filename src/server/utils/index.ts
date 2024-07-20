@@ -7,7 +7,5 @@ export function isLocationValid(location: Location) {
   const userExist = users.find(
     (item) => item.kindom === kindom && item.password === password
   );
-  console.log(users, db.data.locations);
-  console.log(kindom, password);
   return userExist ? true : false;
 }

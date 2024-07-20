@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "start": "tsx src/main.ts",
-    "serve": "tsx src/server/index.ts"
+    "serve": "tsx src/server/index.ts",
+    "serve2": "nohup tsx src/server/index.ts  > my_app_log.log 2> my_app_err.log &"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
@@ -20,6 +21,7 @@
     "dayjs": "^1.11.12",
     "express": "^4.19.2",
     "lowdb": "^7.0.1",
+    "node-fetch": "^3.3.2",
     "tsx": "^4.16.2",
     "uuid": "^10.0.0"
   }

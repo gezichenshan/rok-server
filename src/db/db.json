@@ -53,6 +53,18 @@
       "id": "0ad2d9a0-ebaf-4a01-bf9c-561d461c139b",
       "handled": true,
       "created_at": "2024-07-18 22:21:15"
+    },
+    {
+      "kindom": "544",
+      "lost": "c22222",
+      "x": "2134",
+      "y": "123",
+      "type": "大建筑师",
+      "password": "5",
+      "address": "四川省成都市双流区",
+      "id": "bf0bc506-47d9-4e4b-a4c6-03e3b72bfa76",
+      "handled": false,
+      "created_at": "2024-07-20 12:49:20"
     }
   ]
 }
