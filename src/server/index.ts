@@ -71,6 +71,12 @@ app.get("/api/history", (req, res) => {
   res.status(200).send(list);
 });
 
+app.get("/api/queue", (req, res) => {
+  const kindom = req.query.kindom;
+  const unhandledLocationNumber = getUnhandledLocationNumber(kindom);
+  res.status(200).send(`有${unhandledLocationNumber}个请求排队中`);
+});
+
 app.post("/api/updateLocation", (req, res) => {
   const location: Location = req.body;
   setLocationHandled(location);
