@@ -88,7 +88,7 @@ app.get("/api/queue", (req, res) => {
 app.get("/api/failCounts", (req, res) => {
   const kindom = req.query.kindom;
   const failCounts = kindomFailCountsMap.get(kindom) || 0;
-  res.status(200).send(failCounts);
+  res.status(200).send(`${failCounts}`);
 });
 
 app.post("/api/updateLocation", (req, res) => {
