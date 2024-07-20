@@ -7,6 +7,7 @@ import {
   saveLocation,
   getUnhandledLocationNumber,
   getEveryKindowmEarlestUnhandledLocation,
+  getLocationHistory,
 } from "../db";
 
 const app = express();
@@ -40,6 +41,12 @@ app.post("/api/ask", (req, res) => {
 
 app.get("/api/getLocations", (req, res) => {
   res.status(200).send(getEveryKindowmEarlestUnhandledLocation());
+});
+
+app.get("/api/history", (req, res) => {
+  const length = req.query.page_size || 5;
+  const list = getLocationHistory(Number(length));
+  res.status(200).send(list);
 });
 
 /**

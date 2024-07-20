@@ -54,5 +54,8 @@ export function getEveryKindowmEarlestUnhandledLocation() {
     .filter((location) => !!location);
   return locations;
 }
-
+export function getLocationHistory(length: number) {
+  const locations = db.data.locations;
+  return locations.slice(0).reverse().slice(0, length).reverse();
+}
 export default db;
