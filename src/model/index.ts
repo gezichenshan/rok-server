@@ -8,6 +8,7 @@ export interface Location {
   password: string;
   handled: boolean;
   created_at: string;
+  address?: string;
 }
 
 export interface User {

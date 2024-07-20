@@ -26,7 +26,24 @@ const port = 3019;
 let open = true;
 let failCounts = 0;
 
-app.post("/api/ask", (req, res) => {
+async function setAddress(req, res, next) {
+  const ip = req.headers["x-real-ip"];
+  const url = `https://qifu-api.baidubce.com/ip/geo/v1/district?ip=${ip}`;
+  try {
+    const address = await fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        const data = json.data;
+        return `${data.prov}${data.city}${data.district}`;
+      });
+    req.rok_address = address;
+  } catch (error) {
+    req.rok_address = "未知";
+  }
+  next();
+}
+
+app.post("/api/ask", setAddress, (req, res) => {
   const location: Location = req.body;
   const valid = isLocationValid(location);
   if (!valid) {
@@ -34,7 +51,7 @@ app.post("/api/ask", (req, res) => {
     return;
   }
   const unhandledLocationNumber = getUnhandledLocationNumber(location.kindom);
-  saveLocation(location);
+  saveLocation({ ...location, address: req.rok_address });
   res
     .status(200)
     .send(`请求已收到，前方还有${unhandledLocationNumber}个请求排队中`);
