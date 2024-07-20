@@ -58,4 +58,13 @@ export function getLocationHistory(length: number) {
   const locations = db.data.locations;
   return locations.slice(0).reverse().slice(0, length).reverse();
 }
+
+export function setLocationHandled(location: Location) {
+  const _location = db.data.locations.find((loc) => loc.id === location.id);
+  if (_location) {
+    _location.handled = true;
+    db.write();
+  }
+}
+
 export default db;

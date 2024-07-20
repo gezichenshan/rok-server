@@ -51,7 +51,7 @@
       "type": "大科学家",
       "password": "5",
       "id": "0ad2d9a0-ebaf-4a01-bf9c-561d461c139b",
-      "handled": false,
+      "handled": true,
       "created_at": "2024-07-18 22:21:15"
     }
   ]

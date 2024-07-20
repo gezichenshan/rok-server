@@ -8,6 +8,7 @@ import {
   getUnhandledLocationNumber,
   getEveryKindowmEarlestUnhandledLocation,
   getLocationHistory,
+  setLocationHandled,
 } from "../db";
 
 const app = express();
@@ -47,6 +48,12 @@ app.get("/api/history", (req, res) => {
   const length = req.query.page_size || 5;
   const list = getLocationHistory(Number(length));
   res.status(200).send(list);
+});
+
+app.post("/api/updateLocation", (req, res) => {
+  const location: Location = req.body;
+  setLocationHandled(location);
+  res.status(200).send("true");
 });
 
 /**
