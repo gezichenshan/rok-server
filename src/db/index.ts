@@ -5,13 +5,14 @@ import { JSONFile } from "lowdb/node";
 import { v4 as uuidv4 } from "uuid";
 
 import dayjs from "dayjs";
-import { Location, User } from "../model";
+import { Location, Fort, User } from "../model";
 
 type Data = {
   users: User[];
   locations: Location[];
+  forts: Fort[]
 };
-const defaultData = { users: [], locations: [] };
+const defaultData = { users: [], locations: [], forts: [] };
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const file = join(__dirname, "db.json");
@@ -65,6 +66,18 @@ export function setLocationHandled(location: Location) {
     _location.handled = true;
     db.write();
   }
+}
+
+/**
+ * 添加寨子记录
+ */
+export async function addFort(fort: Fort) {
+  db.data.forts.push({ ...fort, created_at: dayjs().format("YYYY-MM-DD HH:mm:ss") });
+  await db.write();
+}
+
+export function getFortList() {
+  return db.data.forts;
 }
 
 export default db;

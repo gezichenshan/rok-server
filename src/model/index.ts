@@ -16,3 +16,8 @@ export interface User {
   kindom: string;
   password: string;
 }
+
+export interface Fort {
+  content: string,
+  created_at: string
+}

@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import fetch from "node-fetch";
-import { Location } from "../model";
+import { Location, Fort } from "../model";
 import { isLocationValid } from "./utils";
 import {
   saveLocation,
@@ -10,6 +10,8 @@ import {
   getEveryKindowmEarlestUnhandledLocation,
   getLocationHistory,
   setLocationHandled,
+  addFort,
+  getFortList
 } from "../db";
 
 const app = express();
@@ -20,7 +22,20 @@ app.use(
     extended: true,
   })
 );
-app.use(cors());
+
+var whitelist = ['https://api-rok.3mir.cc']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+//app.use(cors(corsOptions));
+app.use(cors())
 
 const port = 3019;
 
@@ -101,6 +116,20 @@ app.post("/api/updateLocation", (req, res) => {
   setLocationHandled(location);
   res.status(200).send("true");
 });
+
+/**
+ * 添加寨子记录
+ */
+app.post("/api/addFort", (req, res) => {
+  const fort: Fort = req.body;
+  addFort(fort)
+  res.status(200).send("true");
+})
+
+app.get("/api/fort/list", (req, res) => {
+  const list = getFortList()
+  res.status(200).send(list);
+})
 
 /**
  * 小程序setting
