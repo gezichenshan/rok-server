@@ -72,12 +72,40 @@ export function setLocationHandled(location: Location) {
  * 添加寨子记录
  */
 export async function addFort(fort: Fort) {
-  db.data.forts.push({ ...fort, created_at: dayjs().format("YYYY-MM-DD HH:mm:ss") });
+  db.data.forts.push(fort);
   await db.write();
 }
 
 export function getFortList() {
   return db.data.forts;
+}
+
+/**
+ * adminPass
+ */
+export function getAdminPass(kindom: string) {
+  const users = db.data.users;
+  const one = users.find(user => user.kindom === kindom)
+  if (one) {
+    return one.adminPass
+  }
+  return undefined
+}
+export function getKinomOpenStatus(kindom: string) {
+  const users = db.data.users;
+  const one = users.find(user => user.kindom === kindom)
+  if (one) {
+    return one.open
+  }
+  return false
+}
+export function setKindomOpen(kindom: string, open: boolean) {
+  const users = db.data.users;
+  const one = users.find(user => user.kindom === kindom)
+  if (one) {
+    one.open = open
+    db.write();
+  }
 }
 
 export default db;

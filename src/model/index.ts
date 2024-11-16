@@ -15,6 +15,8 @@ export interface Location {
 export interface User {
   kindom: string;
   password: string;
+  adminPass: string;
+  open: boolean
 }
 
 export interface Fort {

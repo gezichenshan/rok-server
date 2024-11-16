@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "tsx src/server/index.ts",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "tsx src/main.ts",
+    "start": "pm2 start ecosystem.config.cjs > my_app_log.log 2> my_app_err.log &",
+    "stop": "pm2 stop ecosystem.config.cjs",
     "serve": "tsx src/server/index.ts",
     "serve2": "nohup tsx src/server/index.ts  > my_app_log.log 2> my_app_err.log &"
   },

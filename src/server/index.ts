@@ -11,7 +11,10 @@ import {
   getLocationHistory,
   setLocationHandled,
   addFort,
-  getFortList
+  getFortList,
+  getAdminPass,
+  setKindomOpen,
+  getKinomOpenStatus
 } from "../db";
 
 const app = express();
@@ -134,28 +137,25 @@ app.get("/api/fort/list", (req, res) => {
 /**
  * 小程序setting
  */
-const adminPass = "333";
 app.post("/api/open", (req, res) => {
-  const pass = req.body.password;
-  if (pass === adminPass) {
-    open = true;
-    res.send({ msg: `小程序已打开` });
+  const kindom = req.body.kindom
+  const pass = req.body.adminPass;
+  const open = req.body.open;
+  const dbAdminPass = getAdminPass(kindom)
+  console.log(req.body)
+  console.log(dbAdminPass)
+  if (pass === dbAdminPass) {
+    setKindomOpen(kindom, open)
+    res.send(open ? `小程序已打开` : '小程序已关闭');
     return;
   }
-  res.send({ msg: `密码错误` });
+  res.status(400).send(`密码错误`);
 });
 
-app.post("/api/close", (req, res) => {
-  const pass = req.body.password;
-  if (pass === adminPass) {
-    open = false;
-    res.send({ msg: `小程序已关闭` });
-    return;
-  }
-  res.send({ msg: `密码错误` });
-});
 
 app.get("/api/status", (req, res) => {
+  const kindom = req.query.kindom
+  const open = getKinomOpenStatus(kindom)
   res.send({ status: open });
 });
 
